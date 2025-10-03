@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Portfolio Admin</title>
+    <link rel="stylesheet" href="admin.css" />
+    <script src="https://upload-widget.cloudinary.com/global/all.js" defer></script>
+    <script src="admin.js" defer></script>
+  </head>
+  <body>
+    <header class="admin-header">
+      <h1>Portfolio Admin</h1>
+      <a class="btn" href="index.html">← Back to site</a>
+    </header>
+
+    <div id="local-only-banner" class="warning" role="alert" hidden>
+      Admin is local only. Open this page on localhost to enable actions.
+    </div>
+
+    <main class="admin-main" role="main">
+      <section class="panel" aria-labelledby="settings-title">
+        <h2 id="settings-title">Cloudinary Settings</h2>
+        <div class="settings-row">
+          <label>Cloud name <input id="cloud-name" type="text" placeholder="your-cloud-name" /></label>
+          <label>Unsigned preset <input id="upload-preset" type="text" placeholder="unsigned preset" /></label>
+          <button id="save-settings" class="btn primary">Save</button>
+        </div>
+        <p id="settings-status" class="muted" aria-live="polite"></p>
+        <p id="preview-warning" class="warning" aria-live="polite" hidden>
+          Note: You're not in preview mode (?preview=1). Changes are NOT committed automatically. Use "Download content.json" below to save.
+        </p>
+      </section>
+
+      <section class="panel" aria-labelledby="upload-title">
+        <h2 id="upload-title">Upload</h2>
+        <div class="upload-row">
+          <button id="upload-audio" class="btn">Upload Audio (mp3/m4a)</button>
+          <button id="upload-images" class="btn">Upload Images</button>
+        </div>
+        <div id="pending" class="pending-list" aria-live="polite"></div>
+      </section>
+
+      <section class="panel" aria-labelledby="video-title">
+        <h2 id="video-title">Video Link Importer</h2>
+        <form id="video-form" class="video-form">
+          <label>Section
+            <select id="video-section">
+              <option value="games">Games</option>
+              <option value="apps">Apps</option>
+            </select>
+          </label>
+          <label>Type
+            <select id="video-type">
+              <option value="youtube">YouTube</option>
+              <option value="vimeo">Vimeo</option>
+              <option value="cfstream">Cloudflare Stream</option>
+            </select>
+          </label>
+          <label>Link or ID <input id="video-input" type="text" placeholder="URL or ID" /></label>
+          <label>Title <input id="video-title-input" type="text" placeholder="Project title" /></label>
+          <label>Year <input id="video-year" type="number" min="1900" max="2100" value="2024" /></label>
+          <label>Tags (comma) <input id="video-tags" type="text" placeholder="unity, web" /></label>
+          <label>Thumbnail URL <input id="video-thumb" type="url" placeholder="https://..." /></label>
+          <button class="btn primary" type="submit">Add To Content</button>
+        </form>
+        <p id="video-status" class="muted" aria-live="polite"></p>
+      </section>
+
+      <section class="panel" aria-labelledby="download-title">
+        <h2 id="download-title">Content</h2>
+        <div class="row">
+          <button id="download-json" class="btn primary" disabled>Download updated content.json</button>
+          <span id="download-status" class="muted" aria-live="polite"></span>
+        </div>
+      </section>
+    </main>
+  </body>
+  </html>

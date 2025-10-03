@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title id="meta-title">YOUR NAME — Portfolio</title>
+    <meta id="meta-description" name="description" content="Portfolio of YOUR NAME — Musician, Writer, Game Design Analysis, Art, Video Games, Street Photography, and Vibe Coding Apps." />
+    <link id="canonical" rel="canonical" href="." />
+    <meta id="og-title" property="og:title" content="YOUR NAME — Portfolio" />
+    <meta id="og-description" property="og:description" content="Musician • Writer • Game Design • Art • Photography • Vibe Coding" />
+    <meta property="og:type" content="website" />
+    <meta id="og-image" property="og:image" content="assets/images/og/og.svg" />
+    <meta id="og-url" property="og:url" content="." />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta id="twitter-title" name="twitter:title" content="YOUR NAME — Portfolio" />
+    <meta id="twitter-description" name="twitter:description" content="Musician • Writer • Game Design • Art • Photography • Vibe Coding" />
+    <meta id="twitter-image" name="twitter:image" content="assets/images/og/og.svg" />
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='28' fill='%236ee7f1'/%3E%3C/svg%3E" />
+
+    <script type="application/ld+json" id="ld-person">
+      {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "YOUR NAME",
+        "headline": "Musician • Writer • Game Design • Art • Photography • Vibe Coding"
+      }
+    </script>
+
+    <script type="application/ld+json" id="ld-website">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "url": ".",
+        "name": "YOUR NAME — Portfolio",
+        "potentialAction": {
+          "@type": "SearchAction",
+          "target": "#search",
+          "query-input": "required name=search_term_string"
+        }
+      }
+    </script>
+
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="site-header" role="banner">
+      <div class="header-inner">
+        <a href="#home" class="site-title" aria-label="Home">YOUR NAME</a>
+        <nav class="site-nav" aria-label="Primary">
+          <a href="#home">Home</a>
+          <a href="#musician">Musician</a>
+          <a href="#writer">Writer</a>
+          <a href="#analysis">Game Design Analysis</a>
+          <a href="#art">Art</a>
+          <a href="#games">Video Games</a>
+          <a href="#photography">Street Photography</a>
+          <a href="#apps">Vibe Coding Apps</a>
+          <a href="#contact">Contact</a>
+          <a href="admin.html" rel="nofollow noopener">Admin</a>
+        </nav>
+        <div class="header-actions">
+          <div class="search" role="search">
+            <input id="search" type="search" placeholder="Search…" aria-label="Search" />
+            <button id="clear-search" class="icon-btn" aria-label="Clear search" title="Clear">×</button>
+          </div>
+          <button id="theme-toggle" class="btn" type="button" aria-label="Toggle theme">🌙</button>
+        </div>
+      </div>
+    </header>
+
+    <main id="home" class="content" role="main">
+      <section class="hero" aria-labelledby="hero-title">
+        <div class="hero-inner">
+          <h1 id="hero-title" class="hero-title">YOUR NAME</h1>
+          <p id="hero-tagline" class="hero-tagline">Musician • Writer • Game Design • Art • Photography • Vibe Coding</p>
+          <div class="hero-ctas">
+            <a class="btn primary" href="#musician">Listen</a>
+            <a class="btn" href="#contact">Contact</a>
+          </div>
+        </div>
+      </section>
+
+      <section id="musician" class="section" aria-labelledby="musician-title">
+        <div class="section-head">
+          <h2 id="musician-title">Musician</h2>
+          <div class="chips" data-section="musician"></div>
+        </div>
+        <div id="musician-body" class="cards"></div>
+      </section>
+
+      <section id="writer" class="section" aria-labelledby="writer-title">
+        <div class="section-head">
+          <h2 id="writer-title">Writer</h2>
+          <div class="chips" data-section="writer"></div>
+        </div>
+        <div id="writer-body" class="cards"></div>
+      </section>
+
+      <section id="analysis" class="section" aria-labelledby="analysis-title">
+        <div class="section-head">
+          <h2 id="analysis-title">Game Design Analysis</h2>
+          <div class="chips" data-section="analysis"></div>
+        </div>
+        <div id="analysis-body" class="cards"></div>
+      </section>
+
+      <section id="art" class="section" aria-labelledby="art-title">
+        <div class="section-head">
+          <h2 id="art-title">Art</h2>
+          <div class="chips" data-section="art"></div>
+        </div>
+        <div id="art-body" class="cards"></div>
+      </section>
+
+      <section id="games" class="section" aria-labelledby="games-title">
+        <div class="section-head">
+          <h2 id="games-title">Video Games</h2>
+          <div class="chips" data-section="games"></div>
+        </div>
+        <div id="games-body" class="cards"></div>
+      </section>
+
+      <section id="photography" class="section" aria-labelledby="photography-title">
+        <div class="section-head">
+          <h2 id="photography-title">Street Photography</h2>
+          <div class="chips" data-section="photography"></div>
+        </div>
+        <div id="photography-body" class="cards"></div>
+      </section>
+
+      <section id="apps" class="section" aria-labelledby="apps-title">
+        <div class="section-head">
+          <h2 id="apps-title">Vibe Coding Apps</h2>
+          <div class="chips" data-section="apps"></div>
+        </div>
+        <div id="apps-body" class="cards"></div>
+      </section>
+
+      <section id="contact" class="section" aria-labelledby="contact-title">
+        <div class="section-head">
+          <h2 id="contact-title">Contact</h2>
+        </div>
+        <div id="contact-body" class="cards"></div>
+      </section>
+    </main>
+
+    <div id="lightbox" class="lightbox zoom-fit" aria-hidden="true" aria-label="Image viewer" role="dialog" aria-modal="true">
+      <button class="lightbox-close" aria-label="Close">×</button>
+      <button class="lightbox-zoom" aria-label="Toggle zoom">1:1</button>
+      <button class="lightbox-prev" aria-label="Previous">‹</button>
+      <div class="lightbox-stage" tabindex="-1">
+        <img class="lightbox-img" alt="" />
+      </div>
+      <div class="lightbox-caption" aria-live="polite"></div>
+      <a class="lightbox-download" href="#" download aria-label="Download image">Download</a>
+      <button class="lightbox-next" aria-label="Next">›</button>
+    </div>
+
+    <div id="details-modal" class="modal" aria-hidden="true" role="dialog" aria-label="Details">
+      <div class="modal-content" role="document">
+        <button class="modal-close" aria-label="Close">×</button>
+        <div class="modal-body"></div>
+      </div>
+    </div>
+
+    <div id="drive-modal" class="modal" aria-hidden="true" role="dialog" aria-label="Drive preview">
+      <div class="modal-content" role="document">
+        <button class="modal-close" aria-label="Close">×</button>
+        <div class="embed">
+          <iframe id="drive-frame" src="" title="Google Drive preview" allow="autoplay" allowfullscreen></iframe>
+        </div>
+      </div>
+    </div>
+
+    <div id="reader-modal" class="modal" aria-hidden="true" role="dialog" aria-label="Reading view">
+      <div class="modal-content reader" role="document">
+        <button class="modal-close" aria-label="Close">×</button>
+        <div class="reader-head">
+          <button class="btn" id="reader-prev" aria-label="Previous">‹ Prev</button>
+          <div class="reader-title" id="reader-title"></div>
+          <button class="btn" id="reader-next" aria-label="Next">Next ›</button>
+        </div>
+        <div class="reader-body" id="reader-body" tabindex="0"></div>
+      </div>
+    </div>
+
+    <footer class="site-footer" role="contentinfo">
+      <div class="footer-inner">
+        <div class="footer-copy">© <span id="footer-year"></span> <span id="footer-name">YOUR NAME</span></div>
+        <nav class="footer-nav" aria-label="Footer">
+          <a href="#home">Back to top</a>
+          <a id="footer-email" href="mailto:you@example.com?subject=Hello%20from%20your%20portfolio">Email</a>
+        </nav>
+      </div>
+    </footer>
+
+    <div id="toast" class="toast" role="status" aria-live="polite" aria-atomic="true"></div>
+
+    <script src="main.js" defer></script>
+  </body>
+  </html>
