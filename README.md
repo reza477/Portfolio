@@ -27,4 +27,7 @@ Modern, responsive portfolio site. Content-driven via `content/content.json`.
   - Art & Photography items: `{ "title": "…", "driveId": "FILE_ID", "year": 2024, "tags": [ … ] }`
   - Musician tracks: use `driveId` instead of `file` to show an “Open in Drive” button (no custom audio player for Drive items).
   - Games/Apps projects: `{ "embed": { "type": "gdrive", "id": "FILE_ID" } }` to preview in the details modal.
-- Why preview iframes? Using Drive’s preview (`https://drive.google.com/file/d/ID/preview`) is the most reliable, cross‑origin‑friendly way to display Drive media without exposing raw download endpoints.
+- Why preview iframes? Using Drive's preview (`https://drive.google.com/file/d/ID/preview`) is the most reliable, cross‑origin‑friendly way to display Drive media without exposing raw download endpoints.
+
+## Netlify
+Deploy to Netlify with optimized caching for static assets and security headers configured in `netlify.toml`.
