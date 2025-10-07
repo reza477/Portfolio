@@ -206,3 +206,15 @@ Make sure your admin.html/admin.js checks:
 if (location.hostname !== 'localhost' && location.hostname !== '127.0.0.1') {
   // show "Admin is local only" banner and disable actions
 }
+
+💬 Prompt 11:
+Ensure the nav renders long+short labels and shows short at ≤1200px:
+- "Game Design Analysis" → "GDA"
+- "Vibe Coding Apps" → "VCA"
+Keep tooltips with full names. Minimal patch in main.js and styles.css.
+
+💬 Prompt 12:
+btw i need you to go to the steps file, and add in the promps i write here so that we have a record of them all
+
+💬 Prompt 13:
+do that automatiaclly after every promp i give you

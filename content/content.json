@@ -1,5 +1,5 @@
 {
-  "site": { "name": "YOUR NAME", "tagline": "Musician • Writer • Game Design • Art • Photography • Vibe Coding" },
+  "site": { "name": "Reza Rahnama", "tagline": "Musician • Writer • Game Design • Art • Photography • Vibe Coding" },
   "musician": {
     "bio": "Short music bio.",
     "tracks": [
@@ -53,4 +53,3 @@
     ]
   }
 }
-
