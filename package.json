@@ -8,7 +8,8 @@
     "check:links": "node tools/check-links.js",
     "check": "npm run validate && npm run check:links",
     "add:drive": "node tools/drive-import.js",
-    "add:local": "node tools/ingest-local.js"
+    "add:local": "node tools/ingest-local.js",
+    "images:build": "node tools/make-srcset.js"
   },
   "devDependencies": {
     "ajv": "^8.17.1"
@@ -17,6 +18,7 @@
     "globby": "^15.0.0",
     "mime": "^4.1.0",
     "node-fetch": "^3.3.2",
-    "slugify": "^1.6.6"
+    "slugify": "^1.6.6",
+    "sharp": "^0.33.4"
   }
 }

@@ -681,11 +681,16 @@
       const tags = (w.tags||[]).concat([String(w.year||'')]).filter(Boolean);
       addCard(c, sectionKey, w.title, tags);
       const alt = `${w.title} — ${sectionKey}`;
-      const src = escapeAttr(w.driveId ? driveImageUrl(parseDriveId(w.driveId)) : w.src);
-      const srcset = `${src} 480w, ${src} 960w, ${src} 1440w`;
-      const sizes = '(min-width: 980px) 25vw, 90vw';
+      const srcValue = w.driveId ? driveImageUrl(parseDriveId(w.driveId)) : (w.src || '');
+      const src = escapeAttr(srcValue);
+      const srcsetArray = Array.isArray(w.srcset) ? w.srcset.filter(entry => entry && entry.src && entry.w) : [];
+      const srcsetAttr = srcsetArray.length
+        ? ` srcset="${srcsetArray.map(entry => `${escapeAttr(entry.src)} ${entry.w}w`).join(', ')}"`
+        : '';
+      const sizesAttr = srcsetArray.length ? ' sizes="(min-width: 900px) 33vw, 90vw"' : '';
+      const largestSrc = srcsetArray.length ? escapeAttr(srcsetArray[srcsetArray.length - 1].src) : src;
       c.innerHTML = `
-        <img class="thumb" data-lightbox data-large="${src}" data-title="${escapeAttr(w.title)}" data-year="${escapeAttr(String(w.year||''))}" data-caption="${escapeAttr(w.title)}" src="${src}" srcset="${srcset}" sizes="${sizes}" alt="${escapeAttr(alt)}" loading="lazy" />
+        <img class="thumb" data-lightbox data-large="${largestSrc}" data-title="${escapeAttr(w.title)}" data-year="${escapeAttr(String(w.year||''))}" data-caption="${escapeAttr(w.title)}" src="${src}"${srcsetAttr}${sizesAttr} alt="${escapeAttr(alt)}" loading="lazy" />
         <h3>${escapeHTML(w.title)}</h3>
         <div class="meta">${escapeHTML(String(w.year||''))}</div>
         <div class="tag-row"></div>`;

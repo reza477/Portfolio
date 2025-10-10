@@ -46,6 +46,9 @@ npm start
 ## Validate Content
 - Run `npm run validate` to ensure `content/content.json` matches `schema/content.schema.json` (automatically runs before pushes).
 
+## Asset Tools
+- Run `npm run images:build` to generate responsive variants (`assets/images/_generated/manifest.json`) and inject `srcset` data; this script relies on the native `sharp` dependency installed via `npm install`.
+
 ## Deploy
 Netlify (recommended)
 - Connect your repo, set:

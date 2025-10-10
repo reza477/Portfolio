@@ -5,7 +5,7 @@
 - Created portfolio folder in Start_1 directory
 - User requested to create a text file called "steps" to track conversation history and prompts
 
-💬 Prompt 1:
+# 💬 Prompt 1:
 You are my pair‑programmer inside Cursor. Create a modern, responsive portfolio site with this exact structure:
 
 📂 Create these files in the project root:
@@ -75,7 +75,7 @@ You are my pair‑programmer inside Cursor. Create a modern, responsive portfoli
 
 Create/modify all files and show a single combined patch. Do not print explanations, just the patch.
 
-💬 Prompt 2:
+# 💬 Prompt 2:
 Enhance the Musician section audio player:
 
 - Replace the simple list with a custom playlist UI: current track title, Play/Pause, Previous, Next, Seek bar, Elapsed/Duration, Volume, and "Open Link" dropdown using the track's external links.
@@ -86,7 +86,7 @@ Enhance the Musician section audio player:
 
 Update main.js, styles.css, and any necessary HTML hooks. Return a single combined patch.
 
-💬 Prompt 3:
+# 💬 Prompt 3:
 Improve galleries (Art + Street Photography):
 
 - Add filter chips above each gallery (e.g., "All", "Watercolor", "AI", "Street", "B/W", years) auto-derived from tags in content.json. Persist last filter per section.
@@ -96,7 +96,7 @@ Improve galleries (Art + Street Photography):
 
 Patch main.js + styles.css and adjust index.html hooks if needed. One combined patch only.
 
-💬 Prompt 4:
+# 💬 Prompt 4:
 Upgrade Writer and Game Design Analysis sections:
 
 - Render lists of posts/essays with date, tags, and excerpt (first 200 chars). Add a "Read" button that opens a modal reading view with larger typography and previous/next navigation within that section.
@@ -106,7 +106,7 @@ Upgrade Writer and Game Design Analysis sections:
 
 Update main.js + styles.css; small hooks in index.html if required. Single patch.
 
-💬 Prompt 5:
+# 💬 Prompt 5:
 Enhance Video Games and Vibe Coding Apps:
 
 - Card grid with hover effect. Each card shows title, year, tags, and CTA links (e.g., GitHub, Live, Trailer, Itch).
@@ -115,7 +115,7 @@ Enhance Video Games and Vibe Coding Apps:
 
 Update main.js + styles.css; one combined patch.
 
-💬 Prompt 6:
+# 💬 Prompt 6:
 Polish Contact and footer:
 
 - Contact area: show email with a copy-to-clipboard button and a "Compose Email" mailto link with prefilled subject "Hello from your portfolio".
@@ -125,7 +125,7 @@ Polish Contact and footer:
 
 Patch index.html, styles.css, main.js. Return one combined patch.
 
-💬 Prompt 7:
+# 💬 Prompt 7:
 Maintenance sync and confirmations
 
 - Verified that all features requested in Prompts 1–6 are implemented in the current codebase (dynamic sections, global/per‑section search, gallery filters + lightbox with zoom and keyboard, Musician custom player with persistence, Writer/Analysis reader modal with sanitization and prev/next, Games/Apps details modal and multi‑select filters, Contact + footer polish with toasts, theme persistence).
@@ -133,7 +133,7 @@ Maintenance sync and confirmations
 - Next content step: replace `YOUR NAME` and placeholders in `portfolio/content/content.json` with real data when available; this will drive the header, meta, JSON‑LD, and section content automatically.
 - Separate app (FocusTimer) README updated to log Prompt 7 status and commit to ongoing README updates.
 
-💬 Prompt 8:
+# 💬 Prompt 8:
 Update styles.css and main.js with three improvements:
 
 (1) Background gradient:
@@ -174,7 +174,7 @@ Update styles.css and main.js with three improvements:
   .player input[type="range"]::-moz-range-thumb{width:14px;height:14px;border-radius:50%;background:#fff}
 Return one combined patch; keep behavior identical.
 
-💬 Prompt 9:
+# 💬 Prompt 9:
 Add Google Drive support:
 
 content.json may use:
@@ -194,7 +194,7 @@ Musician: if driveId, render title/year/tags + a small "Open in Drive" button th
 Games/Apps: if embed.type==="gdrive", open modal with iframe(drivePreviewUrl).
 Ensure the modal traps focus, closes on ESC, returns focus to the opener.
 
-💬 Prompt 10:
+# 💬 Prompt 10:
 Ensure all paths are relative, not absolute:
 	•	In index.html:
 <link rel="stylesheet" href="styles.css">
@@ -207,19 +207,19 @@ if (location.hostname !== 'localhost' && location.hostname !== '127.0.0.1') {
   // show "Admin is local only" banner and disable actions
 }
 
-💬 Prompt 11:
+# 💬 Prompt 11:
 Ensure the nav renders long+short labels and shows short at ≤1200px:
 - "Game Design Analysis" → "GDA"
 - "Vibe Coding Apps" → "VCA"
 Keep tooltips with full names. Minimal patch in main.js and styles.css.
 
-💬 Prompt 12:
+# 💬 Prompt 12:
 btw i need you to go to the steps file, and add in the promps i write here so that we have a record of them all
 
-💬 Prompt 13:
+# 💬 Prompt 13:
 do that automatiaclly after every promp i give you
 
-💬 Prompt 14:
+# 💬 Prompt 14:
 Replace README.md with a production-grade README for my portfolio:
 - Title “Reza Rahnama — Portfolio”
 - What it is (static site, JSON-driven sections)
@@ -231,17 +231,17 @@ Replace README.md with a production-grade README for my portfolio:
 - License (MIT) and Credits
 Keep it concise and scannable, with code blocks. Patch only.
 
-💬 Prompt 15:
+# 💬 Prompt 15:
 lets continue the portfolio website
 
-💬 Prompt 16:
+# 💬 Prompt 16:
 npm init -y  # if package.json doesn't exist already (safe to run)
 git push     # push the README/.gitignore changes
 
-💬 Prompt 16:
+# 💬 Prompt 16:
 do 2 now, then we will do 1
 
-💬 Prompt 17:
+# 💬 Prompt 17:
 Create tools/check-links.js that:
 - Loads content.json
 - Verifies local assets exist (assets/... paths)
@@ -256,7 +256,7 @@ Patch only.
 
 remeber to add these promps to the steps file every time i give them to you
 
-💬 Prompt 18:
+# 💬 Prompt 18:
 Create tools/drive-import.js that accepts CLI args:
   node tools/drive-import.js --type=art --title="My Painting" --year=2025 --tags=watercolor,blue --drive="PASTE_DRIVE_URL_OR_ID"
 Supported types: art, photo, track, game, app.
@@ -271,7 +271,7 @@ Supported types: art, photo, track, game, app.
 Add npm script: "add:drive": "node tools/drive-import.js"
 Patch only.
 
-💬 Prompt 19:
+# 💬 Prompt 19:
 npm i ajv node-fetch@3 globby mime slugify
 # (node 18+ has fetch; node-fetch is optional—Codex may choose one)
 npm run validate
@@ -280,7 +280,7 @@ npm run check
 node tools/drive-import.js --type=art --title="Test Drive Art" --year=2025 --tags=watercolor --drive="PASTE_LINK_OR_ID"
 git add -A && git commit -m "tools: validators and importers" && git push
 
-💬 Prompt 19:
+# 💬 Prompt 19:
 Create tools/ingest-local.js that:
 - Takes --src=path and --type=art|photo|track|game|app
 - For images/audio dropped into a temp folder, slugify filenames, move them into assets/images/... or assets/music/, avoiding collisions
@@ -290,7 +290,7 @@ Create tools/ingest-local.js that:
 Add npm script: "add:local": "node tools/ingest-local.js"
 Patch only.
 
-💬 Prompt 20:
+# 💬 Prompt 20:
 Add .github/workflows/ci.yml that runs on push and PR:
 - Setup Node 20
 - npm ci (or npm i)
@@ -298,3 +298,19 @@ Add .github/workflows/ci.yml that runs on push and PR:
 - If branch is main, also upload artifacts (logs) so I can download failures
 
 Minimal, fast workflow. Patch only.
+
+# 💬 Prompt 21:
+Add tools/make-srcset.js that:
+- Scans assets/images/{art,photography}/**/*.{jpg,jpeg,png}
+- For each, generates 480/960/1440 px widths into a parallel folder structure under assets/images/_generated/
+- Writes a manifest mapping original -> srcset array [{w:480, src:"..."}...]
+- Optionally, update content.json entries to include a srcset field when the generated images exist
+
+Add npm script: "images:build": "node tools/make-srcset.js"
+
+In main.js, if an item has srcset, render <img srcset="..." sizes="(min-width: 900px) 33vw, 90vw"> and fallback to src.
+
+Patch only and note Sharp dependency in README.
+
+# 💬 Prompt 22:
+do a # before every promp u write in steps
