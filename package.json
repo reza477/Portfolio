@@ -6,7 +6,8 @@
     "validate": "node tools/validate-content.js",
     "prepush": "npm run validate",
     "check:links": "node tools/check-links.js",
-    "check": "npm run validate && npm run check:links"
+    "check": "npm run validate && npm run check:links",
+    "add:drive": "node tools/drive-import.js"
   },
   "devDependencies": {
     "ajv": "^8.12.0"

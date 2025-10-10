@@ -255,3 +255,18 @@ Add npm scripts:
 Patch only.
 
 remeber to add these promps to the steps file every time i give them to you
+
+💬 Prompt 18:
+Create tools/drive-import.js that accepts CLI args:
+  node tools/drive-import.js --type=art --title="My Painting" --year=2025 --tags=watercolor,blue --drive="PASTE_DRIVE_URL_OR_ID"
+Supported types: art, photo, track, game, app.
+- Parse the Drive ID from common link formats.
+- Build the correct object for that section:
+  art/photo: { title, driveId, year, tags[] }
+  track: { title, year, driveId, links:[{label:"Drive", url:viewLink}] }
+  game/app: { title, year, tags[], embed:{type:"gdrive", id}, summary:"(fill me)" }
+- Append to content.json (newest first) and pretty-print.
+- Run validation at the end; if invalid, revert the write and show errors.
+
+Add npm script: "add:drive": "node tools/drive-import.js"
+Patch only.
