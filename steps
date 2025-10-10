@@ -270,3 +270,31 @@ Supported types: art, photo, track, game, app.
 
 Add npm script: "add:drive": "node tools/drive-import.js"
 Patch only.
+
+💬 Prompt 19:
+npm i ajv node-fetch@3 globby mime slugify
+# (node 18+ has fetch; node-fetch is optional—Codex may choose one)
+npm run validate
+npm run check
+# Try a test drive import:
+node tools/drive-import.js --type=art --title="Test Drive Art" --year=2025 --tags=watercolor --drive="PASTE_LINK_OR_ID"
+git add -A && git commit -m "tools: validators and importers" && git push
+
+💬 Prompt 19:
+Create tools/ingest-local.js that:
+- Takes --src=path and --type=art|photo|track|game|app
+- For images/audio dropped into a temp folder, slugify filenames, move them into assets/images/... or assets/music/, avoiding collisions
+- Emit proposed JSON entries to stdout and optionally apply them when --apply is passed
+- Update content.json and validate
+
+Add npm script: "add:local": "node tools/ingest-local.js"
+Patch only.
+
+💬 Prompt 20:
+Add .github/workflows/ci.yml that runs on push and PR:
+- Setup Node 20
+- npm ci (or npm i)
+- npm run check (validates schema + links)
+- If branch is main, also upload artifacts (logs) so I can download failures
+
+Minimal, fast workflow. Patch only.

@@ -7,9 +7,16 @@
     "prepush": "npm run validate",
     "check:links": "node tools/check-links.js",
     "check": "npm run validate && npm run check:links",
-    "add:drive": "node tools/drive-import.js"
+    "add:drive": "node tools/drive-import.js",
+    "add:local": "node tools/ingest-local.js"
   },
   "devDependencies": {
-    "ajv": "^8.12.0"
+    "ajv": "^8.17.1"
+  },
+  "dependencies": {
+    "globby": "^15.0.0",
+    "mime": "^4.1.0",
+    "node-fetch": "^3.3.2",
+    "slugify": "^1.6.6"
   }
 }
