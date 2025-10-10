@@ -240,3 +240,18 @@ git push     # push the README/.gitignore changes
 
 💬 Prompt 16:
 do 2 now, then we will do 1
+
+💬 Prompt 17:
+Create tools/check-links.js that:
+- Loads content.json
+- Verifies local assets exist (assets/... paths)
+- For driveId items, constructs the preview URL and HEAD-requests it (skip if offline or blocked)
+- Prints a summary with counts and filenames; exits 1 if any local asset missing
+
+Add npm scripts:
+  "check:links": "node tools/check-links.js",
+  "check": "npm run validate && npm run check:links"
+
+Patch only.
+
+remeber to add these promps to the steps file every time i give them to you

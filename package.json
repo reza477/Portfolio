@@ -4,7 +4,9 @@
   "scripts": {
     "start": "python3 -m http.server 5505",
     "validate": "node tools/validate-content.js",
-    "prepush": "npm run validate"
+    "prepush": "npm run validate",
+    "check:links": "node tools/check-links.js",
+    "check": "npm run validate && npm run check:links"
   },
   "devDependencies": {
     "ajv": "^8.12.0"
