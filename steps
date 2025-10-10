@@ -218,3 +218,25 @@ btw i need you to go to the steps file, and add in the promps i write here so th
 
 💬 Prompt 13:
 do that automatiaclly after every promp i give you
+
+💬 Prompt 14:
+Replace README.md with a production-grade README for my portfolio:
+- Title “Reza Rahnama — Portfolio”
+- What it is (static site, JSON-driven sections)
+- Live URL (Netlify) and project structure tree
+- How to run locally, how to deploy (GitHub Pages + Netlify)
+- How to add content (Drive and local assets)
+- Accessibility notes (keyboard, ARIA, reduced motion)
+- Security (admin is local-only; future serverless publishing)
+- License (MIT) and Credits
+Keep it concise and scannable, with code blocks. Patch only.
+
+💬 Prompt 15:
+lets continue the portfolio website
+
+💬 Prompt 16:
+npm init -y  # if package.json doesn't exist already (safe to run)
+git push     # push the README/.gitignore changes
+
+💬 Prompt 16:
+do 2 now, then we will do 1
