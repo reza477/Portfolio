@@ -43,6 +43,9 @@ npm start
 # → http://localhost:5505
 ```
 
+## Validate Content
+- Run `npm run validate` to ensure `content/content.json` matches `schema/content.schema.json` (automatically runs before pushes).
+
 ## Deploy
 Netlify (recommended)
 - Connect your repo, set:

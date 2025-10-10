@@ -1,0 +1,417 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.com/schema/content.schema.json",
+  "title": "Portfolio Content",
+  "type": "object",
+  "additionalProperties": true,
+  "required": [
+    "site",
+    "musician",
+    "writer",
+    "analysis",
+    "art",
+    "photography",
+    "games",
+    "apps"
+  ],
+  "properties": {
+    "site": {
+      "type": "object",
+      "required": [
+        "name",
+        "tagline"
+      ],
+      "properties": {
+        "name": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "tagline": {
+          "$ref": "#/$defs/nonEmptyString"
+        }
+      },
+      "additionalProperties": false
+    },
+    "musician": {
+      "type": "object",
+      "required": [
+        "tracks"
+      ],
+      "properties": {
+        "bio": {
+          "type": "string"
+        },
+        "tracks": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/track"
+          }
+        }
+      },
+      "additionalProperties": true
+    },
+    "writer": {
+      "type": "object",
+      "required": [
+        "posts"
+      ],
+      "properties": {
+        "intro": {
+          "type": "string"
+        },
+        "posts": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/datedEntry"
+          }
+        }
+      },
+      "additionalProperties": true
+    },
+    "analysis": {
+      "type": "object",
+      "required": [
+        "essays"
+      ],
+      "properties": {
+        "intro": {
+          "type": "string"
+        },
+        "essays": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/datedEntry"
+          }
+        }
+      },
+      "additionalProperties": true
+    },
+    "art": {
+      "type": "object",
+      "required": [
+        "works"
+      ],
+      "properties": {
+        "intro": {
+          "type": "string"
+        },
+        "works": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/visualItem"
+          }
+        }
+      },
+      "additionalProperties": true
+    },
+    "photography": {
+      "type": "object",
+      "required": [
+        "photos"
+      ],
+      "properties": {
+        "intro": {
+          "type": "string"
+        },
+        "photos": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/visualItem"
+          }
+        }
+      },
+      "additionalProperties": true
+    },
+    "games": {
+      "type": "object",
+      "required": [
+        "projects"
+      ],
+      "properties": {
+        "intro": {
+          "type": "string"
+        },
+        "projects": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/project"
+          }
+        }
+      },
+      "additionalProperties": true
+    },
+    "apps": {
+      "type": "object",
+      "required": [
+        "projects"
+      ],
+      "properties": {
+        "intro": {
+          "type": "string"
+        },
+        "projects": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/project"
+          }
+        }
+      },
+      "additionalProperties": true
+    },
+    "contact": {
+      "type": "object",
+      "properties": {
+        "email": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "links": {
+          "$ref": "#/$defs/linkList"
+        }
+      },
+      "additionalProperties": true
+    }
+  },
+  "$defs": {
+    "nonEmptyString": {
+      "type": "string",
+      "minLength": 1
+    },
+    "tagList": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/nonEmptyString"
+      },
+      "minItems": 1
+    },
+    "link": {
+      "type": "object",
+      "required": [
+        "label",
+        "url"
+      ],
+      "properties": {
+        "label": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "url": {
+          "$ref": "#/$defs/nonEmptyString"
+        }
+      },
+      "additionalProperties": false
+    },
+    "linkList": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/link"
+      },
+      "minItems": 1
+    },
+    "audioSource": {
+      "anyOf": [
+        {
+          "required": [
+            "file"
+          ],
+          "properties": {
+            "file": {
+              "$ref": "#/$defs/nonEmptyString"
+            }
+          }
+        },
+        {
+          "required": [
+            "driveId"
+          ],
+          "properties": {
+            "driveId": {
+              "$ref": "#/$defs/nonEmptyString"
+            }
+          }
+        }
+      ]
+    },
+    "visualSource": {
+      "anyOf": [
+        {
+          "required": [
+            "src"
+          ],
+          "properties": {
+            "src": {
+              "$ref": "#/$defs/nonEmptyString"
+            }
+          }
+        },
+        {
+          "required": [
+            "driveId"
+          ],
+          "properties": {
+            "driveId": {
+              "$ref": "#/$defs/nonEmptyString"
+            }
+          }
+        }
+      ]
+    },
+    "datedEntry": {
+      "type": "object",
+      "required": [
+        "title",
+        "date",
+        "tags"
+      ],
+      "properties": {
+        "title": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "date": {
+          "type": "string",
+          "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+        },
+        "tags": {
+          "$ref": "#/$defs/tagList"
+        },
+        "links": {
+          "$ref": "#/$defs/linkList"
+        },
+        "html": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "summary": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": true
+    },
+    "track": {
+      "type": "object",
+      "required": [
+        "title",
+        "year",
+        "links"
+      ],
+      "properties": {
+        "title": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "year": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "links": {
+          "$ref": "#/$defs/linkList"
+        },
+        "file": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "driveId": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "summary": {
+          "type": "string"
+        }
+      },
+      "allOf": [
+        {
+          "$ref": "#/$defs/audioSource"
+        }
+      ],
+      "additionalProperties": true
+    },
+    "visualItem": {
+      "type": "object",
+      "required": [
+        "title",
+        "year",
+        "tags"
+      ],
+      "properties": {
+        "title": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "year": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "tags": {
+          "$ref": "#/$defs/tagList"
+        },
+        "type": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "src": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "driveId": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "description": {
+          "type": "string"
+        }
+      },
+      "allOf": [
+        {
+          "$ref": "#/$defs/visualSource"
+        }
+      ],
+      "additionalProperties": true
+    },
+    "embed": {
+      "type": "object",
+      "required": [
+        "type",
+        "id"
+      ],
+      "properties": {
+        "type": {
+          "enum": [
+            "youtube",
+            "vimeo",
+            "gdrive"
+          ]
+        },
+        "id": {
+          "$ref": "#/$defs/nonEmptyString"
+        }
+      },
+      "additionalProperties": false
+    },
+    "project": {
+      "type": "object",
+      "required": [
+        "title",
+        "year",
+        "tags",
+        "links"
+      ],
+      "properties": {
+        "title": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "year": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "tags": {
+          "$ref": "#/$defs/tagList"
+        },
+        "links": {
+          "$ref": "#/$defs/linkList"
+        },
+        "thumb": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "src": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "summary": {
+          "type": "string"
+        },
+        "embed": {
+          "$ref": "#/$defs/embed"
+        }
+      },
+      "additionalProperties": true
+    }
+  }
+}
