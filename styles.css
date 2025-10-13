@@ -138,13 +138,34 @@ body {
   transition: background .25s ease, border-color .25s ease, color .25s ease, transform .25s ease, box-shadow .25s ease;
 }
 .btn.primary { background: color-mix(in oklab, var(--accent) 20%, transparent); border-color: var(--accent); color: var(--text); }
-.btn.drive { border-color: var(--accent); background: color-mix(in oklab, var(--accent) 18%, transparent); }
 .btn:hover {
   transform: translateY(-1px);
   background: color-mix(in oklab, var(--card) 50%, var(--glass-highlight) 45%);
   box-shadow: 0 12px 28px rgba(0,0,0,0.28);
 }
 .btn:focus-visible, .chip:focus-visible, a:focus-visible, .search input:focus-visible { outline: var(--ring); outline-offset: 2px; }
+
+.missing-placeholder {
+  border: 1px dashed var(--accent);
+  border-radius: 12px;
+  padding: 18px;
+  text-align: center;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  background: color-mix(in oklab, var(--accent) 16%, transparent);
+  color: var(--accent);
+}
+.btn.missing-action[disabled] {
+  border: 1px dashed var(--accent);
+  background: transparent;
+  color: var(--accent);
+  cursor: not-allowed;
+  opacity: 0.85;
+}
+.card.needs-upload .missing-placeholder {
+  margin-bottom: 12px;
+}
 
 @media (min-width: 980px) {
   .site-nav {

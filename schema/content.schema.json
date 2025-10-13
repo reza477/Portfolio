@@ -206,52 +206,28 @@
       "minItems": 1
     },
     "audioSource": {
-      "anyOf": [
-        {
-          "required": [
-            "file"
-          ],
-          "properties": {
-            "file": {
-              "$ref": "#/$defs/nonEmptyString"
-            }
-          }
-        },
-        {
-          "required": [
-            "driveId"
-          ],
-          "properties": {
-            "driveId": {
-              "$ref": "#/$defs/nonEmptyString"
-            }
-          }
+      "type": "object",
+      "required": [
+        "file"
+      ],
+      "properties": {
+        "file": {
+          "$ref": "#/$defs/nonEmptyString"
         }
-      ]
+      },
+      "additionalProperties": true
     },
     "visualSource": {
-      "anyOf": [
-        {
-          "required": [
-            "src"
-          ],
-          "properties": {
-            "src": {
-              "$ref": "#/$defs/nonEmptyString"
-            }
-          }
-        },
-        {
-          "required": [
-            "driveId"
-          ],
-          "properties": {
-            "driveId": {
-              "$ref": "#/$defs/nonEmptyString"
-            }
-          }
+      "type": "object",
+      "required": [
+        "src"
+      ],
+      "properties": {
+        "src": {
+          "$ref": "#/$defs/nonEmptyString"
         }
-      ]
+      },
+      "additionalProperties": true
     },
     "datedEntry": {
       "type": "object",
@@ -304,9 +280,6 @@
         "file": {
           "$ref": "#/$defs/nonEmptyString"
         },
-        "driveId": {
-          "$ref": "#/$defs/nonEmptyString"
-        },
         "summary": {
           "type": "string"
         }
@@ -342,9 +315,6 @@
         "src": {
           "$ref": "#/$defs/nonEmptyString"
         },
-        "driveId": {
-          "$ref": "#/$defs/nonEmptyString"
-        },
         "description": {
           "type": "string"
         }
@@ -366,8 +336,7 @@
         "type": {
           "enum": [
             "youtube",
-            "vimeo",
-            "gdrive"
+            "vimeo"
           ]
         },
         "id": {

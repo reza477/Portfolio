@@ -62,11 +62,11 @@
     "works": [
       {
         "title": "Blue Wash",
+        "driveId": "1BlueWashSampleDriveID123",
         "year": 2025,
         "tags": [
           "watercolor"
-        ],
-        "src": "CDN://UPLOAD_ME/blue-wash.jpg"
+        ]
       },
       {
         "title": "Blue Wash",

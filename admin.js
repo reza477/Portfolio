@@ -51,7 +51,7 @@
     state.widgetAudio = cloudinary.createUploadWidget({
       cloudName: state.cloudName,
       uploadPreset: state.uploadPreset,
-      sources: ['local','url','google_drive','dropbox'],
+      sources: ['local','url','dropbox'],
       clientAllowedFormats: ['mp3','m4a'],
       multiple: true,
       resourceType: 'auto'
@@ -60,7 +60,7 @@
     state.widgetImages = cloudinary.createUploadWidget({
       cloudName: state.cloudName,
       uploadPreset: state.uploadPreset,
-      sources: ['local','url','google_drive','dropbox','camera'],
+      sources: ['local','url','dropbox','camera'],
       multiple: true,
       resourceType: 'image'
     }, onUpload);

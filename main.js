@@ -28,28 +28,6 @@
   function $(sel, root = document) { return root.querySelector(sel); }
   function $all(sel, root = document) { return Array.from(root.querySelectorAll(sel)); }
 
-  // Google Drive helpers
-  function parseDriveId(str) {
-    if (!str) return '';
-    try {
-      // Plain ID
-      if (/^[a-zA-Z0-9_-]{20,}$/.test(str)) return str;
-      // /file/d/ID/... pattern
-      const m1 = str.match(/\/file\/d\/([a-zA-Z0-9_-]+)/);
-      if (m1) return m1[1];
-      // id=ID in query (open, uc, etc.)
-      const m2 = str.match(/[?&]id=([a-zA-Z0-9_-]+)/);
-      if (m2) return m2[1];
-      // Try URL parsing and extract id param
-      const u = new URL(str, window.location.href);
-      const idQ = u.searchParams.get('id');
-      if (idQ) return idQ;
-      return '';
-    } catch { return ''; }
-  }
-  const driveImageUrl = (id) => `https://drive.google.com/uc?export=view&id=${encodeURIComponent(id)}`;
-  const drivePreviewUrl = (id) => `https://drive.google.com/file/d/${encodeURIComponent(id)}/preview`;
-
   // Theme
   function initTheme() {
     let theme = localStorage.getItem(THEME_KEY);
@@ -262,49 +240,6 @@
 
   const lightboxApi = initLightbox();
 
-  // Drive preview modal (focus-trapped)
-  function initDriveModal() {
-    const modal = document.getElementById('drive-modal');
-    const frame = document.getElementById('drive-frame');
-    let lastFocused = null;
-    let focusables = [];
-    function gatherFocusables() {
-      focusables = Array.from(modal.querySelectorAll('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"]), iframe'))
-        .filter(el => !el.hasAttribute('disabled'));
-    }
-    function open(id, opener) {
-      const parsed = parseDriveId(id);
-      if (!parsed) return;
-      frame.src = drivePreviewUrl(parsed);
-      lastFocused = opener || document.activeElement;
-      modal.classList.add('open');
-      modal.setAttribute('aria-hidden','false');
-      gatherFocusables();
-      (modal.querySelector('.modal-close') || modal).focus();
-    }
-    function close() {
-      frame.src = '';
-      modal.classList.remove('open');
-      modal.setAttribute('aria-hidden','true');
-      if (lastFocused) { try { lastFocused.focus(); } catch {} }
-    }
-    modal.addEventListener('click', (e) => { if (e.target === modal) close(); });
-    modal.querySelector('.modal-close')?.addEventListener('click', close);
-    document.addEventListener('keydown', (e) => {
-      if (!modal.classList.contains('open')) return;
-      if (e.key === 'Escape') { e.preventDefault(); close(); }
-      else if (e.key === 'Tab') {
-        if (!focusables.length) return;
-        e.preventDefault();
-        const dir = e.shiftKey ? -1 : 1;
-        const idx = (focusables.indexOf(document.activeElement) + dir + focusables.length) % focusables.length;
-        focusables[idx].focus();
-      }
-    });
-    return { open, close };
-  }
-  const driveApi = initDriveModal();
-
   function collectLightboxItems() {
     state.lightbox.items = $all('img[data-lightbox]')
       .map(img => ({
@@ -394,32 +329,36 @@
     let pIndex = 0; // playable index
     (musician.tracks || []).forEach((track, idx) => {
       const card = document.createElement('div');
-      const tagList = [String(track.year || '')].filter(Boolean).concat((track.links||[]).map(l=>l.label||''));
+      const tagList = [String(track.year || '')].filter(Boolean).concat((track.links || []).map(l => l.label || ''));
       addCard(card, 'musician', track.title, tagList);
       card.classList.add('track-card');
-      const isDrive = !!track.driveId && !track.file;
-      const is = 'track';
+      const hasDrive = !!track.driveId;
+      const hasFile = !!track.file;
+      const needsUpload = hasDrive || !hasFile;
+      if (hasDrive) {
+        console.warn(`[media pipeline] Music track "${track.title || `Track ${idx + 1}`}" requires a CDN file and removal of driveId.`);
+      } else if (!hasFile) {
+        console.warn(`[media pipeline] Music track "${track.title || `Track ${idx + 1}`}" is missing an audio file path.`);
+      }
+      if (needsUpload) card.classList.add('needs-upload');
       card.innerHTML = `
-        <div class="${is}" data-index="${idx}" role="listitem" aria-selected="false">
-          ${isDrive ? '' : `<button class="play" aria-label="Play or pause ${escapeHTML(track.title)}">▶</button>`}
-          <div class="title">${escapeHTML(track.title)}<div class="meta">${escapeHTML(String(track.year||''))}</div></div>
+        <div class="track" data-index="${idx}" role="listitem" aria-selected="false">
+          ${needsUpload ? `<div class="missing-placeholder" role="status">MISSING: upload to CDN</div>` : `<button class="play" aria-label="Play or pause ${escapeHTML(track.title)}">▶</button>`}
+          <div class="title">${escapeHTML(track.title)}<div class="meta">${escapeHTML(String(track.year || ''))}</div></div>
           <div class="links"></div>
         </div>`;
       const row = card.querySelector('.track');
       const links = card.querySelector('.links');
-      if (isDrive) {
-        const btn = document.createElement('button');
-        btn.className = 'btn drive';
-        btn.textContent = 'Open in Drive';
-        btn.addEventListener('click', (e) => { e.stopPropagation(); driveApi.open(track.driveId, btn); });
-        links.appendChild(btn);
-      }
-      (track.links||[]).forEach(link => {
+      (track.links || []).forEach(link => {
         const a = document.createElement('a');
-        a.href = link.url || '#'; a.textContent = link.label || 'Link'; a.className = 'btn'; a.target = '_blank'; a.rel = 'noopener';
+        a.href = link.url || '#';
+        a.textContent = link.label || 'Link';
+        a.className = 'btn';
+        a.target = '_blank';
+        a.rel = 'noopener';
         links.appendChild(a);
       });
-      if (!isDrive && track.file) {
+      if (!needsUpload && hasFile) {
         const thisP = pIndex++;
         row.addEventListener('click', () => selectTrack(thisP));
         row.addEventListener('dblclick', () => playByIndex(thisP));
@@ -678,24 +617,48 @@
 
     works.forEach((w, idx) => {
       const c = document.createElement('div');
-      const tags = (w.tags||[]).concat([String(w.year||'')]).filter(Boolean);
+      const tags = (w.tags || []).concat([String(w.year || '')]).filter(Boolean);
       addCard(c, sectionKey, w.title, tags);
+      const hasDrive = !!w.driveId;
+      const hasSrc = !!w.src;
+      if (hasDrive) {
+        console.warn(`[media pipeline] ${sectionKey} item "${w.title || `Item ${idx + 1}`}" requires a CDN image and removal of driveId.`);
+      } else if (!hasSrc) {
+        console.warn(`[media pipeline] ${sectionKey} item "${w.title || `Item ${idx + 1}`}" is missing an image source.`);
+      }
+      if (hasDrive || !hasSrc) c.classList.add('needs-upload');
       const alt = `${w.title} — ${sectionKey}`;
-      const srcValue = w.driveId ? driveImageUrl(parseDriveId(w.driveId)) : (w.src || '');
-      const src = escapeAttr(srcValue);
-      const srcsetArray = Array.isArray(w.srcset) ? w.srcset.filter(entry => entry && entry.src && entry.w) : [];
-      const srcsetAttr = srcsetArray.length
-        ? ` srcset="${srcsetArray.map(entry => `${escapeAttr(entry.src)} ${entry.w}w`).join(', ')}"`
-        : '';
-      const sizesAttr = srcsetArray.length ? ' sizes="(min-width: 900px) 33vw, 90vw"' : '';
-      const largestSrc = srcsetArray.length ? escapeAttr(srcsetArray[srcsetArray.length - 1].src) : src;
+      let mediaMarkup = '';
+      if (!hasDrive && hasSrc) {
+        const srcsetArray = Array.isArray(w.srcset) ? w.srcset.filter(entry => entry && entry.src && entry.w) : [];
+        const srcAttr = escapeAttr(w.src || '');
+        const srcsetAttr = srcsetArray.length
+          ? ` srcset="${srcsetArray.map(entry => `${escapeAttr(entry.src)} ${entry.w}w`).join(', ')}"`
+          : '';
+        const sizesAttr = srcsetArray.length ? ' sizes="(min-width: 900px) 33vw, 90vw"' : '';
+        const largestSrcRaw = srcsetArray.length ? srcsetArray[srcsetArray.length - 1].src : (w.src || '');
+        const largestSrc = escapeAttr(largestSrcRaw || '');
+        mediaMarkup = `<img class="thumb" data-lightbox data-large="${largestSrc}" data-title="${escapeAttr(w.title)}" data-year="${escapeAttr(String(w.year || ''))}" data-caption="${escapeAttr(w.title)}" src="${srcAttr}"${srcsetAttr}${sizesAttr} alt="${escapeAttr(alt)}" loading="lazy" />`;
+      } else {
+        mediaMarkup = `<div class="missing-placeholder" role="status">MISSING: upload to CDN</div>`;
+      }
       c.innerHTML = `
-        <img class="thumb" data-lightbox data-large="${largestSrc}" data-title="${escapeAttr(w.title)}" data-year="${escapeAttr(String(w.year||''))}" data-caption="${escapeAttr(w.title)}" src="${src}"${srcsetAttr}${sizesAttr} alt="${escapeAttr(alt)}" loading="lazy" />
+        ${mediaMarkup}
         <h3>${escapeHTML(w.title)}</h3>
-        <div class="meta">${escapeHTML(String(w.year||''))}</div>
+        <div class="meta">${escapeHTML(String(w.year || ''))}</div>
         <div class="tag-row"></div>`;
       const row = c.querySelector('.tag-row');
-      tags.forEach(t => { const b = document.createElement('button'); b.className='tag'; b.textContent=t; b.addEventListener('click',()=>{state.tagFilters.set(sectionKey,t); localStorage.setItem(FILTER_KEY_PREFIX + sectionKey, t); applyFilters();}); row.appendChild(b); });
+      tags.forEach(t => {
+        const b = document.createElement('button');
+        b.className = 'tag';
+        b.textContent = t;
+        b.addEventListener('click', () => {
+          state.tagFilters.set(sectionKey, t);
+          localStorage.setItem(FILTER_KEY_PREFIX + sectionKey, t);
+          applyFilters();
+        });
+        row.appendChild(b);
+      });
       body.appendChild(c);
     });
   }
@@ -750,6 +713,11 @@
       addCard(c, sectionKey, p.title, (p.tags||[]).concat(String(p.year||'')).filter(Boolean));
       c.dataset.idx = String(idx);
       c.classList.add('project');
+      const hasDriveEmbed = !!(p.embed && p.embed.type === 'gdrive');
+      if (hasDriveEmbed) {
+        console.warn(`[media pipeline] ${sectionKey} project "${p.title || `Project ${idx + 1}`}" requires a YouTube or Vimeo embed.`);
+        c.classList.add('needs-upload');
+      }
       const alt = `${p.title} — ${sectionKey}`;
       c.innerHTML = `
         <img class="thumb" src="${escapeAttr(p.thumb||'')}" alt="${escapeAttr(alt)}" loading="lazy" />
@@ -762,6 +730,15 @@
       (p.tags||[]).forEach(t => { const b = document.createElement('button'); b.className='tag'; b.textContent=t; b.addEventListener('click',()=>{ const set = state.multiFilters.get(sectionKey) || new Set(); if (set.has(t)) set.delete(t); else set.add(t); state.multiFilters.set(sectionKey, set); localStorage.setItem(MFILTER_PREFIX + sectionKey, JSON.stringify(Array.from(set))); applyFilters();}); row.appendChild(b); });
       const actions = c.querySelector('.actions');
       (p.links||[]).forEach(l => { const a = document.createElement('a'); a.href=l.url||'#'; a.textContent=l.label||'Link'; a.className='btn'; a.target='_blank'; a.rel='noopener'; actions.appendChild(a); });
+      if (hasDriveEmbed) {
+        const replaceBtn = document.createElement('button');
+        replaceBtn.type = 'button';
+        replaceBtn.className = 'btn missing-action';
+        replaceBtn.textContent = 'Replace with YouTube/Vimeo';
+        replaceBtn.disabled = true;
+        replaceBtn.setAttribute('aria-disabled', 'true');
+        actions.appendChild(replaceBtn);
+      }
       const btn = c.querySelector('[data-details]');
       btn.addEventListener('click', () => openProjectDetails(sectionKey, items, idx));
       body.appendChild(c);
@@ -824,11 +801,8 @@
       const src = embed.url || `https://iframe.videodelivery.net/${encodeURIComponent(id)}`;
       return `<div class="embed"><iframe src="${src}" title="${escapeAttr(title||'Cloudflare Stream')}" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>`;
     }
-    if (t === 'gdrive' && embed.id) {
-      const id = parseDriveId(embed.id);
-      if (!id) return '';
-      const src = drivePreviewUrl(id);
-      return `<div class="embed"><iframe src="${src}" title="${escapeAttr(title||'Google Drive preview')}" allow="autoplay" allowfullscreen></iframe></div>`;
+    if (t === 'gdrive') {
+      return `<div class="missing-placeholder" role="status">Replace with YouTube/Vimeo</div>`;
     }
     return '';
   }
@@ -1094,8 +1068,6 @@
     initSearch();
     initModal();
     initResponsiveNav();
-    // Drive modal is ready for use by sections
-    // (initialized above)
     try {
       state.data = await fetchJSON('content/content.json');
     } catch (e) {

@@ -7,7 +7,6 @@
     "prepush": "npm run validate",
     "check:links": "node tools/check-links.js",
     "check": "npm run validate && npm run check:links",
-    "add:drive": "node tools/drive-import.js",
     "add:local": "node tools/ingest-local.js",
     "images:build": "node tools/make-srcset.js"
   },

@@ -326,3 +326,29 @@ node tools/drive-import.js --type=art \
 git add -A
 git commit -m "content(art): add Blue Wash from Drive"
 git push
+
+# 💬 Prompt 25:
+Remove Google Drive–specific code and UI across the project:
+
+Code changes:
+- main.js: delete or fully disable parseDriveId, driveImageUrl, drivePreviewUrl, and any drive-only modal logic. Remove event handlers and keybindings related to drivePreview. In renderers:
+  * Art/Photography: only use {src} (local/CDN URL). If existing items have driveId, render a “MISSING: upload to CDN” placeholder and log a console warning with the item title.
+  * Musician: only use {file} (local/CDN URL) for the custom player. If an item has driveId, render the same MISSING placeholder and log a warning.
+  * Games/Apps: keep generic embed {type:"youtube"|"vimeo", id} and remove support for {type:"gdrive"}; if such items exist, render a button that says “Replace with YouTube/Vimeo” and log a warning.
+
+- index.html: remove the Drive modal markup (find by id or class; e.g., #drive-modal). Ensure other modals still work.
+
+- styles.css: remove drive-specific styles (badges, modal styles). Keep generic modal styles.
+
+- README: replace Drive sections with a short “Media pipeline” note (images/audio via CDN URLs; videos via YouTube/Vimeo embed).
+
+Add a tools/migrate-drive-out.js script that:
+- Scans content/content.json.
+- For each item with driveId or embed.type==="gdrive", replaces those fields with placeholders:
+  * art/photos: { src: "CDN://UPLOAD_ME/<slug>.jpg" }
+  * musician: { file: "CDN://UPLOAD_ME/<slug>.mp3" }
+  * games/apps: { embed: { type: "youtube", id: "REPLACE_WITH_VIDEO_ID" } }
+- Writes a backup to content/content.backup-drive.json and updates content.json in place.
+- Prints a summary of items changed.
+
+Return one combined patch.

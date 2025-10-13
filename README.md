@@ -48,6 +48,12 @@ npm start
 
 ## Asset Tools
 - Run `npm run images:build` to generate responsive variants (`assets/images/_generated/manifest.json`) and inject `srcset` data; this script relies on the native `sharp` dependency installed via `npm install`.
+- Run `node tools/migrate-drive-out.js` to rewrite legacy Google Drive references to CDN-ready placeholders (backs up `content/content.backup-drive.json` first).
+
+## Media Pipeline
+- Images and audio should point to checked-in assets or trusted CDN URLs (e.g., `assets/images/...`, `https://cdn.example.com/...`).
+- Videos embed via `{ "embed": { "type": "youtube" | "vimeo", "id": "VIDEO_ID" } }`.
+- Avoid Google Drive links entirely; if any remain in `content.json`, run the migration script above to generate placeholders before publishing.
 
 ## Deploy
 Netlify (recommended)
@@ -82,7 +88,7 @@ Edit `content/content.json`. Shapes (snippets):
 { "site": { "name": "Reza Rahnama", "tagline": "Musician • Writer • Game Design • Art • Photography • Vibe Coding" } }
 ```
 
-- Musician (local file)
+- Musician (MP3 URL)
 ```json
 { "musician": { "bio": "…", "tracks": [
   { "title": "Track One", "file": "assets/music/track-one.mp3", "year": 2024,
@@ -90,15 +96,10 @@ Edit `content/content.json`. Shapes (snippets):
 ] } }
 ```
 
-- Musician (Google Drive)
-```json
-{ "musician": { "tracks": [ { "title": "…", "driveId": "FILE_ID", "year": 2024 } ] } }
-```
-
-- Art/Photography (local image or Drive)
+- Art/Photography (image URL)
 ```json
 { "art": { "works": [ { "title": "Blue Wash", "src": "assets/images/art/blue-wash.jpg", "year": 2023, "tags": ["watercolor"] } ] } }
-{ "photography": { "photos": [ { "title": "Alley Light", "driveId": "FILE_ID", "year": 2022, "tags": ["street","bw"] } ] } }
+{ "photography": { "photos": [ { "title": "Alley Light", "src": "assets/images/photography/alley-light.jpg", "year": 2022, "tags": ["street","bw"] } ] } }
 ```
 
 - Games/Apps project with embeds
@@ -111,15 +112,6 @@ Edit `content/content.json`. Shapes (snippets):
     "summary": "Arcade runner with procedural levels." }
 ] } }
 ```
-
-- Google Drive embed for projects
-```json
-{ "apps": { "projects": [ { "title": "…", "embed": { "type": "gdrive", "id": "FILE_ID" } } ] } }
-```
-
-Google Drive notes
-- Set files to “Anyone with the link (Viewer)”.
-- For thumbnails, `driveId` is rendered via Drive’s image endpoint; projects/readers use Drive’s preview iframe.
 
 ## Accessibility
 - Keyboard: visible focus rings, ESC to close modals, ←/→ to navigate lightbox/reader, space/←/→ for audio controls.
