@@ -1,55 +1,172 @@
 {
-  "site": { "name": "Reza Rahnama", "tagline": "Musician • Writer • Game Design • Art • Photography • Vibe Coding" },
+  "site": {
+    "name": "Reza Rahnama",
+    "tagline": "Musician • Writer • Game Design • Art • Photography • Vibe Coding"
+  },
   "musician": {
     "bio": "Short music bio.",
     "tracks": [
-      { "title": "Track One", "file": "assets/music/track-one.mp3", "year": 2024, "links": [{ "label": "Bandcamp", "url": "#" }] },
-      { "title": "Track Two", "file": "assets/music/track-two.mp3", "year": 2023, "links": [{ "label": "YouTube", "url": "#" }] }
+      {
+        "title": "Track One",
+        "file": "assets/music/track-one.mp3",
+        "year": 2024,
+        "links": [
+          {
+            "label": "Bandcamp",
+            "url": "#"
+          }
+        ]
+      },
+      {
+        "title": "Track Two",
+        "file": "assets/music/track-two.mp3",
+        "year": 2023,
+        "links": [
+          {
+            "label": "YouTube",
+            "url": "#"
+          }
+        ]
+      }
     ]
   },
   "writer": {
     "intro": "Novels & excerpts.",
     "posts": [
-      { "title": "Novel Excerpt", "date": "2024-07-01", "tags": ["novel"], "html": "<p>Excerpt HTML here…</p>" }
+      {
+        "title": "Novel Excerpt",
+        "date": "2024-07-01",
+        "tags": [
+          "novel"
+        ],
+        "html": "<p>Excerpt HTML here…</p>"
+      }
     ]
   },
   "analysis": {
     "intro": "Game design essays.",
     "essays": [
-      { "title": "Juice & Feedback in Platformers", "date": "2024-05-01", "tags": ["design","analysis"], "html": "<p>Essay HTML…</p>" }
+      {
+        "title": "Juice & Feedback in Platformers",
+        "date": "2024-05-01",
+        "tags": [
+          "design",
+          "analysis"
+        ],
+        "html": "<p>Essay HTML…</p>"
+      }
     ]
   },
   "art": {
     "intro": "Watercolor & AI art.",
     "works": [
-      { "title": "Blue Wash", "type": "watercolor", "src": "assets/images/art/blue-wash.jpg", "year": 2023, "tags": ["watercolor"] },
-      { "title": "Neon City", "type": "ai", "src": "assets/images/art/neon-city.jpg", "year": 2024, "tags": ["ai"] }
+      {
+        "title": "Blue Wash",
+        "driveId": "1BlueWashSampleDriveID123",
+        "year": 2025,
+        "tags": [
+          "watercolor"
+        ]
+      },
+      {
+        "title": "Blue Wash",
+        "type": "watercolor",
+        "src": "assets/images/art/blue-wash.jpg",
+        "year": 2023,
+        "tags": [
+          "watercolor"
+        ]
+      },
+      {
+        "title": "Neon City",
+        "type": "ai",
+        "src": "assets/images/art/neon-city.jpg",
+        "year": 2024,
+        "tags": [
+          "ai"
+        ]
+      }
     ]
   },
   "games": {
     "intro": "Playable things.",
     "projects": [
-      { "title": "Sky Runner", "thumb": "assets/images/games/skyrunner.jpg", "year": 2023, "tags": ["unity","pc"], "links": [{ "label": "Itch.io", "url": "#" }, { "label": "Trailer", "url": "#" }], "summary": "Arcade runner with procedural levels." }
+      {
+        "title": "Sky Runner",
+        "thumb": "assets/images/games/skyrunner.jpg",
+        "year": 2023,
+        "tags": [
+          "unity",
+          "pc"
+        ],
+        "links": [
+          {
+            "label": "Itch.io",
+            "url": "#"
+          },
+          {
+            "label": "Trailer",
+            "url": "#"
+          }
+        ],
+        "summary": "Arcade runner with procedural levels."
+      }
     ]
   },
   "photography": {
     "intro": "Street moments.",
     "photos": [
-      { "title": "Alley Light", "src": "assets/images/photography/alley-light.jpg", "year": 2022, "tags": ["street","bw"] }
+      {
+        "title": "Alley Light",
+        "src": "assets/images/photography/alley-light.jpg",
+        "year": 2022,
+        "tags": [
+          "street",
+          "bw"
+        ]
+      }
     ]
   },
   "apps": {
     "intro": "Vibe coding apps.",
     "projects": [
-      { "title": "FocusTimer", "thumb": "assets/images/apps/focustimer.jpg", "year": 2024, "tags": ["web","productivity"], "links": [{ "label": "GitHub", "url": "#" }, { "label": "Live", "url": "#" }], "summary": "Pomodoro timer with tasks." }
+      {
+        "title": "FocusTimer",
+        "thumb": "assets/images/apps/focustimer.jpg",
+        "year": 2024,
+        "tags": [
+          "web",
+          "productivity"
+        ],
+        "links": [
+          {
+            "label": "GitHub",
+            "url": "#"
+          },
+          {
+            "label": "Live",
+            "url": "#"
+          }
+        ],
+        "summary": "Pomodoro timer with tasks."
+      }
     ]
   },
   "contact": {
     "email": "you@example.com",
     "links": [
-      { "label": "GitHub", "url": "#" },
-      { "label": "Instagram", "url": "#" },
-      { "label": "YouTube", "url": "#" }
+      {
+        "label": "GitHub",
+        "url": "#"
+      },
+      {
+        "label": "Instagram",
+        "url": "#"
+      },
+      {
+        "label": "YouTube",
+        "url": "#"
+      }
     ]
   }
 }
